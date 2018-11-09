@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class EightQueens {
 
-	public static int GRID_SIZE = 5;
+	public static int GRID_SIZE = 4;
 	public static void printBoard(Integer[] columns) {
         drawLine();
         for(int i = 0; i < GRID_SIZE; i++){
