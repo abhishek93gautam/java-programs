@@ -4,10 +4,10 @@ public class Coins {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] denoms = {10,6,1};
-		int ways = makeChange(100, denoms);
+		int[] denoms = {3,2,1};
+		int ways = makeChange(4, denoms);
 		System.out.println(ways);
-		int ways1 = makeChangeTopDown(100, denoms,denoms.length-1);
+		int ways1 = makeChangeTopDown(4, denoms,denoms.length-1);
 		System.out.println(ways1);
 	}
 	
@@ -34,11 +34,11 @@ public class Coins {
 	
 	public static int makeChangeTopDown(int amount,int[] denoms,int index)
 	{
-		int[] dp = new int[denoms.length+1];
+		int[][] dp = new int[amount+1][denoms.length+1];
 		return makeChangeTopDownHelper(amount,denoms,index,dp);
 	}
 	
-	public static int makeChangeTopDownHelper(int amount,int[] denoms,int index,int[] dp)
+	public static int makeChangeTopDownHelper(int amount,int[] denoms,int index,int[][] dp)
 	{
 		if(amount<0)
 		{
@@ -53,11 +53,11 @@ public class Coins {
 			return 0;
 		}
 		
-		if(dp[index]==0)
+		if(dp[amount][index]==0)
 		{
-			dp[index]=makeChangeTopDown(amount-denoms[index],denoms,index)+makeChangeTopDown(amount,denoms,index-1);
+			dp[amount][index]=makeChangeTopDownHelper(amount-denoms[index],denoms,index,dp)+makeChangeTopDownHelper(amount,denoms,index-1,dp);
 		}
-		return dp[index];
+		return dp[amount][index];
 	}
 
 }
