@@ -15,14 +15,15 @@ public class LCSFruits {
 		int m = str1.length();
 		int n=str2.length();
 		int lcs = LCS(str1,str2,m,n);
-		System.out.println();
-		System.out.print(lcs);
+		//System.out.println();
+		System.out.print("Length of common subsequence : "+lcs);
 
 	}
 	
 	public static int LCS(String str1,String str2,int m,int n)
 	{
 
+		// Finding the length of LCS
 		int[][] dp = new int[m+1][n+1];
 		for(int i=1;i<=m;i++)
 		{
@@ -38,18 +39,10 @@ public class LCSFruits {
 			}
 		}
 		
+		// Getting the LCS array
 		int i=m,j=n;
 		int index = dp[m][n];
 		char[] lcs_array = new char[index];
-//		for(int a=1;a<=m;a++)
-//		{
-//			for(int b=1;b<=n;b++)
-//			{
-//				System.out.print(dp[a][b]+" ");
-//			}
-//			System.out.println();
-//		}
-//		
 		while(i>0 && j>0)
 		{
 			if(str1.charAt(i-1) == str2.charAt(j-1))
@@ -67,54 +60,54 @@ public class LCSFruits {
 				j--;
 			}
 		}
-//		for(int k=0;k<lcs_array.length;k++)
-//		{
-//			System.out.print(lcs_array[k]);
-//		}
-		
-		i=m-1;j=n-1;
-		int l=dp[m][n]-1;
-		index = 0;
-		String ans="";
-		
+		System.out.println(lcs_array);
+		printLongestCommonSuperSequence(str1,str2,dp,lcs_array);
+		return dp[m][n];
+	}
+	
+	static void printLongestCommonSuperSequence(String str1,String str2,int[][] dp,char[] lcs_array) {
+		StringBuilder result = new StringBuilder();
+		int m = str1.length();
+		int n = str2.length();
+		int index = 0;
+		int l = dp[m][n]-1;
+		int i = m-1;
+		int j=n-1;
 		while(i>=0 || j>=0)
 		{
 			if(l>=index)
 			{
-
-				while(j>=0 && str2.charAt(j)!= lcs_array[l])
+				while(j>=0 && str2.charAt(j)!=lcs_array[l])
 				{
-					ans+=str2.charAt(j--);
+					result.append(str2.charAt(j));
+					j--;
 				}
 				while(i>=0 && str1.charAt(i)!=lcs_array[l])
 				{
-					ans+=str1.charAt(i--);
+					result.append(str1.charAt(i));
+					i--;
 				}
-				
-				ans+=lcs_array[l--];
-				j--;
+				result.append(lcs_array[l]);
+				l--;
 				i--;
+				j--;
+				
 			}
 			else {
-				
 				while(j>=0)
 				{
-					ans+=str2.charAt(j--);
+					result.append(str2.charAt(j));
+					j--;
 				}
 				while(i>=0)
 				{
-					ans+=str1.charAt(i--);
+					result.append(str1.charAt(i));
+					i--;
 				}
-				
 			}
 		}
+		System.out.println("Longest common supersequence is: "+result.reverse());
 		
-		for(int z=ans.length()-1;z>=0;z--)
-		{
-			System.out.print(ans.charAt(z));
-		}
-		
-		return dp[m][n];
 	}
 
 }
