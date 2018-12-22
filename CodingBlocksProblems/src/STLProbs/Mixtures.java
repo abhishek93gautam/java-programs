@@ -26,7 +26,8 @@ public class Mixtures {
 			}
 		}
 		
-		System.out.print(NoOfWays(arr,0,n-1,dp));
+		System.out.println("Min cost top down: "+NoOfWays(arr,0,n-1,dp));
+		System.out.println("Min cost bottom down: "+MinCostMixturesBottomUp(arr,n));
 
 	}
 	
@@ -57,10 +58,43 @@ public class Mixtures {
 		for(int z=s;z<=e;z++)
 		{
 			sum+=arr[z];
-			sum%=100;
+			//sum%=100;
+		}
+		return sum;
+	}
+	
+	public static long MinCostMixturesBottomUp(int[] arr,int n)
+	{
+		long[][] dp = new long[n][n];
+		
+		//Make the cummulative sum array
+		long[] sum = new long[n];
+		sum[0] = arr[0];
+		for(int i=1;i<n;i++)
+		{
+			sum[i] = (sum[i-1]+arr[i]);
+		}
+		//System.out.println("Working fine");
+		for(int i=n-1;i>=0;i--)
+		{
+			for(int j=0;j<n;j++)
+			{
+				if(i<j)
+				{
+					dp[i][j] = Long.MAX_VALUE;
+					for(int k=i;k<j;k++)
+					{
+						long sumLeft = (sum[k] - ((i-1)>0?sum[i-1]:0));
+						long sumRight = (sum[j]-sum[k]);
+						//System.out.println(sumLeft+" "+sumRight);
+						dp[i][j] = Math.min(dp[i][j], dp[i][k] + dp[k+1][j] + (sumLeft*sumRight));
+					}
+				}
+				
+			}
 		}
 		
-		return sum;
+		return dp[0][n-1];
 	}
 	
 	
