@@ -1,13 +1,23 @@
 
+class SubClass extends PracticeProblem {
+       private void displayName() {
+             System.out.println("SubClass is a type of SuperClass");
+       }
+}
 public class PracticeProblem {
 
+	private void displayName() {
+        System.out.println("Super Class");
+  }
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		String s = "eeeeeeeeeeeeebbbbbccc";
-		int k = 2;
-		lengthOfLongestSubstringTwoDistinct_New(s,k);
+//		// TODO Auto-generated method stub
+//		
+//		String s = "eeeeeeeeeeeeebbbbbccc";
+//		int k = 2;
+//		lengthOfLongestSubstringTwoDistinct_New(s,k);
 		//System.out.println(length);
+		PracticeProblem superClass = new SubClass();
+        superClass.displayName();
 
 	}
 	
