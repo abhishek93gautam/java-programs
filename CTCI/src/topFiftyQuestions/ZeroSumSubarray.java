@@ -18,7 +18,20 @@ public class ZeroSumSubarray {
 		}
 		
 		int len = MaxLengthOfZeroSubarray(arr);
-		System.out.println(len);
+		int res = MaxSumOfSubarray(arr);
+		System.out.println(res);
+	}
+	
+	static int MaxSumOfSubarray(int[] arr) {
+		int max_so_far = arr[0];
+		int current_max = arr[0];
+		for(int i=1;i<arr.length;i++) {
+			current_max = Math.max(current_max+arr[i], arr[i]);
+			max_so_far = Math.max(max_so_far, current_max);
+		}
+		
+		
+		return max_so_far;
 	}
 	
 	//returns the maximum length of sub array with length 0
